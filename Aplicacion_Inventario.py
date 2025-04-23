@@ -34,7 +34,7 @@ class Producto:
 
 # Definicion de la clase GestionInventario que tenga los metodos para agregar, mostrar, buscar, eliminar y actualizar productos
 class GestionInventario:
-    def __init__ self():
+    def __init__ (self):
         self.conexion = None
         self.cursor = None
         self.conectar_base_datos()
@@ -99,4 +99,7 @@ class GestionInventario:
             self.menu_principal()
 
     def mostrar_productos(self):
-
+        try:
+            self.cursor.execute("SELECT * FROM productos")
+            productos = self.cursor.fetchall()
+            if 
