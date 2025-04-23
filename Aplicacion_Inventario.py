@@ -15,7 +15,7 @@
 # o eliminar un producto que ya existe, manejar errores de conexion a la base de datos, etc.
 
 
-import mysql.connector
+import mysql.connector 
 from mysql.connector import Error
 import os
 import time
@@ -102,4 +102,44 @@ class GestionInventario:
         try:
             self.cursor.execute("SELECT * FROM productos")
             productos = self.cursor.fetchall()
-            if 
+            if productos:
+                print("Productos en el inventario:")
+                for producto in productos:
+                    print(f"ID: {producto[0]}, Nombre: {producto[1]}, Precio: {producto[2]}, Cantidad: {producto[3]}, Categoria: {producto[4]}")
+            else:
+                print("No hay productos en el inventario")
+        except Error as e:
+            print(f"Error al mostrar los productos: {e}")
+        finally:
+            self.menu_principal()
+    
+    def buscar_producto(self):
+        try:
+            nombre = input("Ingrese el nombre del producto a buscar: ")
+            self.cursor.execute("SELECT * FROM productos WHERE nombre = %s", (nombre,))
+            producto = self.cursor.fetchone()
+            if producto:
+                print(f'ID: {producto[0]}, Nombre: {producto[1]}, Precio: {producto[2]}, Cantidad: {producto[3]}, Categoria: {producto[4]}')
+            else: 
+                print("Producto no encontrado")
+        except Error as e:
+
+            print(f"Error al buscar el producto: {e}")
+        finally:
+            self.menu_principal()
+
+    def eliminar_producto(self):
+
+        try:
+            nombre = input("Ingrese el nombre del producto a eliminar: ")
+            self.cursor.execute("DELETE FROM productos WHERE nombre = %s", (nombre,))
+            self.conexion.commit()
+            if self.cursor.rowcount > 0:
+                print("Producto eliminado exitosamente")
+            else:
+                print("Producto no encontrado")
+        except Error as e:
+            print(f"Error al eliminar el producto: {e}")
+        finally:
+            self.menu_principal()
+        
