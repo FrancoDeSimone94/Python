@@ -15,7 +15,7 @@
 # o eliminar un producto que ya existe, manejar errores de conexion a la base de datos, etc.
 
 
-import mysql.connector 
+import cx_Oracle
 from mysql.connector import Error
 import os
 import time
@@ -143,3 +143,69 @@ class GestionInventario:
         finally:
             self.menu_principal()
         
+    def actualizar_producto(self):
+        try:
+            nombre = input("Ingrese el nombre del producto a actualizar: ")
+            nuevo_precio = float(input("Ingrese el nuevo precio del producto: "))
+            nueva_cantidad = int(input("Ingrese la nueva cantidad del producto: "))
+            nueva_categoria = input("Ingrese la nueva categoria del producto: ")
+
+            self.cursor.execute("UPDATE productos SET precio = %s, cantidad = %s, categoria = %s WHERE nombre = %s", (nuevo_precio, nueva_cantidad, nueva_categoria, nombre))
+            self.conexion.commit()
+            if self.cursor.rowcount > 0:
+                print("Producto actualizado exitosamente")
+            else:
+                print("Producto no encontrado")
+        except ValueError:
+                print("Error: El precio y la cantidad deben ser numeros")
+        except Error as e:
+            print(f"Error al actualizar el producto: {e}")
+        finally:
+            self.menu_principal()
+
+    def menu_principal(self):
+        
+        print("Menu Principal")
+        print("1. Agregar producto")
+        print("2. Mostrar productos")
+        print("3. Buscar producto")
+        print("4. Eliminar producto")
+        print("5. Actualizar producto")
+        print("6. Salir")
+
+        opcion = input("Seleccione una opcion: ")
+        if opcion == '1':
+            self.agregar_producto()
+        elif opcion == '2':
+            self.mostrar_productos()
+        elif opcion == '3':
+            self.buscar_producto()
+        elif opcion == '4':
+            self.eliminar_producto()
+        elif opcion == '5':
+            self.actualizar_producto()
+        elif opcion == '6':
+            self.conexion.close()
+            exit(0)
+        else:
+            print("Opcion invalida, intente de nuevo")
+            self.menu_principal()
+
+if __name__ == "__main__":
+    inventario = GestionInventario()
+    inventario.conectar_base_datos()
+    inventario.crear_tabla_productos()
+    inventario.menu_principal()
+    inventario.agregar_producto()
+    inventario.mostrar_productos()
+    inventario.buscar_producto()
+    inventario.eliminar_producto()
+    inventario.actualizar_producto()
+    inventario.conexion.close()
+
+
+# Este es un sistema de gestion de inventario basico, se pueden agregar mas funcionalidades como exportar a excel, importar desde excel, etc.
+# Se pueden agregar mas validaciones y mejoras en la interfaz de usuario, como usar tkinter o PyQt para crear una interfaz grafica mas amigable.
+
+
+
