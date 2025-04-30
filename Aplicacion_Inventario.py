@@ -15,7 +15,7 @@
 # o eliminar un producto que ya existe, manejar errores de conexion a la base de datos, etc.
 
 
-import cx_Oracle
+import mysql.connector
 from mysql.connector import Error
 import os
 import time
@@ -53,7 +53,7 @@ class GestionInventario:
             self.conexion = mysql.connector.connect(
                 host='localhost',
                 user='root',
-                password='',
+                password='admin',
                 database='inventario'
             )
             if self.conexion.is_connected():
