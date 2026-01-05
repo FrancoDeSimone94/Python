@@ -1,5 +1,5 @@
-pares = 0
-impares = 0
+# pares = 0
+# impares = 0
 
 
 # while True:
@@ -30,6 +30,7 @@ impares = 0
 # else:
 #     print ("El bucle termino correctamente")
 
+# ----------------------------------------------------------------------------
 
 #Verificar si ambas condiciones son verdaderas
 
@@ -37,3 +38,35 @@ impares = 0
 # salario = 30000
 # if edad > 18 and salario > 25000:
 #     print("Cumples con los requisitos")
+
+# ----------------------------------------------------------------------------
+
+#Verificar si al menos una de las condiciones es verdadera
+
+# efectivo = 0
+# tarjeta = False
+# if efectivo > 0 or tarjeta:
+#     print("Puedes pagar el producto")
+# else:
+#     print("No tienes medios de pago")
+
+# ----------------------------------------------------------------------------
+
+# Invertir una condicion
+
+# llueve = False
+# if not llueve:
+#     print("Puedes salir a caminar")
+
+# ----------------------------------------------------------------------------
+
+#verificar multiples condiciones
+
+# edad = 20
+# salario = 18000
+# clima = "soleado"
+
+# if edad > 18 and salario 15000 and (clima == "soleado" or clima == "nublado"):  
+#     print("Puedes participar en la actividad al aire libre.")
+# else:
+#     print("No cumples con los requisitos")
